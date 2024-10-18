@@ -1,6 +1,5 @@
 import unittest
 from datetime import date
-from finstruments.portfolio import Portfolio, Position, Trade
 
 from finstruments.common.enum import Currency
 from finstruments.instrument.common.cut import NyseAMCut, NysePMCut
@@ -14,6 +13,7 @@ from finstruments.instrument.equity import EquityETF, CommonStock
 from finstruments.instrument.equity import EquityForward
 from finstruments.instrument.equity import EquityFuture
 from finstruments.instrument.equity import EquityOption
+from finstruments.portfolio import Portfolio, Position, Trade
 from tests.unit.deserialization.util import assert_serialization
 
 

@@ -1,6 +1,5 @@
 import unittest
 from datetime import date
-from finstruments.portfolio import Position
 
 from finstruments.common.enum import Currency
 from finstruments.instrument.common.cut import NysePMCut
@@ -8,6 +7,7 @@ from finstruments.instrument.common.exercise_style import EuropeanExerciseStyle
 from finstruments.instrument.common.option.enum import OptionType
 from finstruments.instrument.common.option.payoff import VanillaPayoff
 from finstruments.instrument.equity import EquityOption, CommonStock
+from finstruments.portfolio import Position
 
 
 class TestHash(unittest.TestCase):

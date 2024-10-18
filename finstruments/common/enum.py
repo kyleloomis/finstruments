@@ -1,6 +1,7 @@
 """
 Common enums.
 """
+
 from finstruments.common.base_enum import BaseEnum
 
 

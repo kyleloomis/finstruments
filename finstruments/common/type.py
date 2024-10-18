@@ -1,6 +1,7 @@
 """
 Common types.
 """
+
 from datetime import date, datetime
 from typing import NewType, Union
 

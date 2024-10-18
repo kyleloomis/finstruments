@@ -1,7 +1,8 @@
 from abc import ABC
 from datetime import date
-from pydantic import Field
 from typing import Optional
+
+from pydantic import Field
 
 from finstruments.common.base import Base
 from finstruments.common.decorators import serializable_base_class

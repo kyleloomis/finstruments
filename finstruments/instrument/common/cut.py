@@ -6,8 +6,8 @@ from pytz import timezone
 from pytz.tzinfo import DstTzInfo
 
 from finstruments.common.base import Base
-from finstruments.common.decorators import serializable, serializable_base_class
 from finstruments.common.date import date_to_datetime
+from finstruments.common.decorators import serializable, serializable_base_class
 
 
 @serializable_base_class

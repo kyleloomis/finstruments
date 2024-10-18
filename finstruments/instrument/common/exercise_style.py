@@ -3,8 +3,8 @@ from datetime import date
 from typing import List
 
 from finstruments.common.base import Base
-from finstruments.common.decorators import serializable, serializable_base_class
 from finstruments.common.date import create_dates_between
+from finstruments.common.decorators import serializable, serializable_base_class
 from finstruments.instrument.common.cut import BaseObservationCut
 
 

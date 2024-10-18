@@ -1,6 +1,7 @@
 from datetime import date
-from pydantic import Field
 from typing import List
+
+from pydantic import Field
 
 from finstruments.common.base import Base
 from finstruments.common.decorators import serializable

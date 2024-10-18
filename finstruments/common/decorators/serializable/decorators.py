@@ -1,5 +1,6 @@
-from pydantic import Field
 from typing import Callable, Union
+
+from pydantic import Field
 
 from finstruments.common.base import Base
 from finstruments.common.decorators.serializable.__util import (

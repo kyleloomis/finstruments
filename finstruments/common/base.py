@@ -7,9 +7,10 @@ import json
 from abc import ABC
 from datetime import date, datetime, tzinfo
 from typing import List
+
+import pydash as _
 from pydantic import BaseModel
 from pydantic.utils import deep_update
-import pydash as _
 
 from finstruments.common.date import date_to_timestamp, datetime_to_timestamp
 from finstruments.common.function import to_nested_dict

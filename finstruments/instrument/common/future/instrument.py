@@ -1,6 +1,7 @@
 from abc import ABC
-from pydantic import Field
 from typing import Optional, Union
+
+from pydantic import Field
 
 from finstruments.common.decorators import serializable_base_class
 from finstruments.common.enum import Currency
