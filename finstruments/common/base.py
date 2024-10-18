@@ -1,6 +1,7 @@
 """
 Base classes with custom attributes for updating, serializing and deserializing data classes and enums.
 """
+
 import base64
 import copy
 import json
