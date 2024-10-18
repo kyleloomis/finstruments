@@ -36,6 +36,8 @@ def get_tag():
         # if not tag or not tag[0].isdigit():
         #     raise ValueError(f"Invalid tag format: {tag}")
 
+        tag = "master"
+
         # Count the number of commits since the last tag
         commits_since_tag = subprocess.run(
             ["git", "rev-list", f"{tag}..HEAD", "--count"],
