@@ -3,12 +3,12 @@ name: Python Package CI
 on:
   push:
     branches:
-      - master
+      - '**'  # This pattern matches any branch for tests
     tags:
-      - '*'  # This pattern matches version tags like v1.0.0
+      - '*'   # This pattern matches any tag for tests and publishing
   pull_request:
     branches:
-      - master
+      - '**'  # This pattern matches any branch for tests
 
 jobs:
   test:
@@ -36,7 +36,7 @@ jobs:
   publish:
     needs: test
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
 
     steps:
       - name: Check out the code
