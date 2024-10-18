@@ -1,5 +1,3 @@
-import subprocess
-
 import setuptools
 
 try:
@@ -16,54 +14,10 @@ except ImportError:
     with open("README.md", encoding="utf-8") as f:
         long_description = f.read()
 
-
-def get_tag():
-    try:
-        # TODO
-        # # Attempt to get the latest tag
-        # tag = subprocess.run(
-        #     ["git", "describe", "--tags", "--abbrev=0"],
-        #     check=True,
-        #     text=True,
-        #     capture_output=True,
-        # ).stdout.strip()
-        #
-        # # Remove the 'v' prefix if it exists
-        # if tag.startswith("v"):
-        #     tag = tag[1:]
-        #
-        # # Verify that the tag is in a valid format
-        # if not tag or not tag[0].isdigit():
-        #     raise ValueError(f"Invalid tag format: {tag}")
-
-        tag = "master"
-
-        # Count the number of commits since the last tag
-        commits_since_tag = subprocess.run(
-            ["git", "rev-list", f"{tag}..HEAD", "--count"],
-            check=True,
-            text=True,
-            capture_output=True,
-        ).stdout.strip()
-
-        # Form the new version
-        # base_version = tag
-        base_version = "0.1"
-        new_version = f"{base_version}.{commits_since_tag}"
-
-        return new_version
-    except subprocess.CalledProcessError as e:
-        # Handle the case where no tags are found
-        if "fatal: No names found" in str(e):
-            print("No tags found in the repository, using default version 0.0.2")
-            return "0.0.2"
-        print(f"Warning: Unable to determine version from Git: {e}")
-        return "0.0.2"
-
-
 setuptools.setup(
     name="finstruments",
-    version=get_tag(),
+    use_scm_version=True,  # Enable setuptools_scm for versioning
+    setup_requires=["setuptools_scm"],  # Ensure setuptools_scm is available for setup
     author="Kyle Loomis",
     author_email="kyle@spotlight.dev",
     description="Financial Instruments.",
