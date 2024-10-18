@@ -35,16 +35,16 @@ def get_tag():
         # # Verify that the tag is in a valid format
         # if not tag or not tag[0].isdigit():
         #     raise ValueError(f"Invalid tag format: {tag}")
-        #
-        # # Count the number of commits since the last tag
-        # commits_since_tag = subprocess.run(
-        #     ["git", "rev-list", f"{tag}..HEAD", "--count"],
-        #     check=True,
-        #     text=True,
-        #     capture_output=True,
-        # ).stdout.strip()
-        #
-        # # Form the new version
+
+        # Count the number of commits since the last tag
+        commits_since_tag = subprocess.run(
+            ["git", "rev-list", f"{tag}..HEAD", "--count"],
+            check=True,
+            text=True,
+            capture_output=True,
+        ).stdout.strip()
+
+        # Form the new version
         # base_version = tag
         base_version = "0.1"
         new_version = f"{base_version}.{commits_since_tag}"
