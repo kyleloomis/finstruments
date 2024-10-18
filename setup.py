@@ -5,20 +5,45 @@ import setuptools
 try:
     import pypandoc
 
-    long_description = pypandoc.convert_file('README.md', 'rst')
-except(IOError, ImportError):
-    long_description = open('README.md').read()
+    try:
+        long_description = pypandoc.convert_file('README.md', 'rst')
+    except Exception as e:
+        print(f"Warning: pypandoc failed with {e}, falling back to raw README.md")
+        with open('README.md', encoding='utf-8') as f:
+            long_description = f.read()
+except ImportError:
+    print("Warning: pypandoc not found, using raw README.md")
+    with open('README.md', encoding='utf-8') as f:
+        long_description = f.read()
 
 
 def get_tag():
-    tag = subprocess.getoutput('git tag --sort=version:refname | tail -n1')
-    commits = subprocess.getoutput(f'git rev-list {tag}..HEAD --count')
-    return f'{tag}.{commits}'
+    try:
+        tag = subprocess.run(
+            ['git', 'tag', '--sort=version:refname'],
+            check=True,
+            text=True,
+            capture_output=True
+        ).stdout.strip().split('\n')[-1]
 
+        commits = subprocess.run(
+            ['git', 'rev-list', f'{tag}..HEAD', '--count'],
+            check=True,
+            text=True,
+            capture_output=True
+        ).stdout.strip()
+
+        return f'{tag}.{commits}'
+    except subprocess.CalledProcessError:
+        print("Warning: Unable to determine version from Git, using default version 0.0.0")
+        return '0.0.0'
+
+
+version = get_tag()
 
 setuptools.setup(
     name="finstruments",
-    version=get_tag(),
+    version=version,
     author="Kyle Loomis",
     author_email="kyle@spotlight.dev",
     description="Financial Instruments.",
@@ -31,7 +56,7 @@ setuptools.setup(
     ],
     python_requires=">=3.7",
     packages=setuptools.find_packages(
-        include=['spotlight*'],
+        include=['finstruments*'],
         exclude=['tests.*']
     ),
     install_requires=[
