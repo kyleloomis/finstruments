@@ -19,7 +19,7 @@ except ImportError:
 
 def get_tag():
     try:
-        # Get the latest tag
+        # Attempt to get the latest tag
         tag = subprocess.run(
             ["git", "describe", "--tags", "--abbrev=0"],
             check=True,
@@ -27,15 +27,15 @@ def get_tag():
             capture_output=True,
         ).stdout.strip()
 
-        # Make sure the tag starts with a valid semantic version format (e.g., v1.0.0)
+        # Remove the 'v' prefix if it exists
         if tag.startswith("v"):
             tag = tag[1:]
 
-        # Verify the tag follows semantic versioning
+        # Verify that the tag is in a valid format
         if not tag or not tag[0].isdigit():
             raise ValueError(f"Invalid tag format: {tag}")
 
-        # Count the number of commits since the last tag to append
+        # Count the number of commits since the last tag
         commits_since_tag = subprocess.run(
             ["git", "rev-list", f"{tag}..HEAD", "--count"],
             check=True,
@@ -43,15 +43,18 @@ def get_tag():
             capture_output=True,
         ).stdout.strip()
 
-        # If there are no commits, use the tag as the version
-        if commits_since_tag == "0":
-            return tag
+        # Form the new version
+        base_version = tag
+        new_version = f"{base_version}.{commits_since_tag}"
 
-        # Return the tag with the number of commits appended
-        return f"{tag}.{commits_since_tag}"
-    except (subprocess.CalledProcessError, ValueError) as e:
+        return new_version
+    except subprocess.CalledProcessError as e:
+        # Handle the case where no tags are found
+        if "fatal: No names found" in str(e):
+            print("No tags found in the repository, using default version 0.1.0")
+            return "0.1.0"
         print(f"Warning: Unable to determine version from Git: {e}")
-        return "0.1.0"  # Default to a safe version if there's a problem
+        return "0.1.0"
 
 
 setuptools.setup(
