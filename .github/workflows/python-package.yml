@@ -5,7 +5,7 @@ on:
     branches:
       - '**'  # This pattern matches any branch for tests
     tags:
-      - '*'   # This pattern matches any tag for tests and publishing
+      - 'v*'   # This pattern matches any tag for tests and publishing
   pull_request:
     branches:
       - '**'  # This pattern matches any branch for tests
@@ -36,7 +36,7 @@ jobs:
   publish:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
+    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
 
     steps:
       - name: Check out the code
