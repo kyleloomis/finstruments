@@ -52,7 +52,7 @@ def datetime_to_utc(dt: datetime) -> datetime:
 
 
 def date_to_datetime(
-        as_of_date: date, as_of_time: time = datetime.min.time()
+    as_of_date: date, as_of_time: time = datetime.min.time()
 ) -> datetime:
     """
     Convert date and optional time to datetime. NOTE: time should not contain a timezone or else offset may not be
@@ -92,4 +92,6 @@ def create_dates_between(start: date, end: date, frequency: str = "B") -> List[d
     elif frequency == "D":  # Daily frequency
         return [start + timedelta(days=i) for i in range((end - start).days + 1)]
     else:
-        raise ValueError("Unsupported frequency. Use 'B' for business days or 'D' for daily.")
+        raise ValueError(
+            "Unsupported frequency. Use 'B' for business days or 'D' for daily."
+        )

@@ -34,7 +34,7 @@ class Trade(Base):
             x
             for x in self.positions
             if (x.instrument.pillar_date is not None)
-               and x.instrument.pillar_date <= as_of_date
+            and x.instrument.pillar_date <= as_of_date
         ]
 
     def filter_expired_positions(self, as_of_date: date) -> "Trade":
@@ -42,7 +42,7 @@ class Trade(Base):
             x
             for x in self.positions
             if (x.instrument.pillar_date is None)
-               or (x.instrument.pillar_date > as_of_date)
+            or (x.instrument.pillar_date > as_of_date)
         ]
 
         return Trade(positions=positions)
@@ -69,7 +69,7 @@ class Portfolio(Base):
             x
             for x in self.positions
             if (x.instrument.pillar_date is not None)
-               and x.instrument.pillar_date <= as_of_date
+            and x.instrument.pillar_date <= as_of_date
         ]
 
     def filter_expired_positions(self, as_of_date: date) -> "Portfolio":

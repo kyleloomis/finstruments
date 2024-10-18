@@ -18,8 +18,7 @@ traders, and developers who need a streamlined way to build and interact with fi
 ## Serialization and Deserialization
 
 `finstruments` includes built-in support for serialization and deserialization of financial instruments, making it easy
-to
-save and load objects in formats like JSON. This feature allows users to easily store the state of financial
+to save and load objects in formats like JSON. This feature allows users to easily store the state of financial
 instruments, share data between systems, or integrate with other applications.
 
 ## Installation
@@ -30,58 +29,38 @@ Install `finstruments` using `pip`:
 pip install finstruments
 ```
 
-## Usage Examples
+## Usage
 
-Below are some examples demonstrating how to use the library for different financial tasks.
-
-### Example 1: Calculating Business Days Between Two Dates
+An equity option requires a `BaseEquity` instrument object (e.g. `CommonStock`) as input for the underlying field. The
+payoff (`VanillaPayoff`, `DigitalPayoff`) and exercise_type (`EuropeanExerciseStyle`, `AmericanExerciseStyle`,
+`BermudanExerciseStyle`) fields need to be populated with objects as well.
 
 ```python
-from finstruments.common.date import create_dates_between
 from datetime import date
 
-# Define start and end dates
-start_date = date(2024, 1, 1)
-end_date = date(2024, 1, 31)
-
-# Get business days between the two dates
-business_days = create_dates_between(start=start_date, end=end_date, frequency="B")
-print("Business Days:", business_days)
-```
-
-### Example 2: Option Payoff Calculation
-
-```python
-from finstruments.instrument.common.option import OptionType, calculate_payoff
-
-# Define option parameters
-strike_price = 100
-market_price = 105
-option_type = OptionType.CALL
-
-# Calculate payoff for a call option
-payoff = calculate_payoff(market_price, strike_price, option_type)
-print("Option Payoff:", payoff)
-```
-
-### Example 3: Creating a Forward Contract
-
-```python
-from finstruments.instrument.forward import ForwardContract
-from datetime import date
-
-# Create a forward contract
-contract = ForwardContract(
-    underlying_asset="AAPL",
-    notional_amount=100000,
-    start_date=date(2024, 1, 1),
-    end_date=date(2025, 1, 1),
-    fixed_rate=0.05
+from finstruments.common.enum import Currency
+from finstruments.instrument.common.cut import NysePMCut
+from finstruments.instrument.common.exercise_style import (
+    AmericanExerciseStyle,
 )
+from finstruments.instrument.common.option.enum import OptionType
+from finstruments.instrument.common.option.payoff import VanillaPayoff
+from finstruments.instrument.equity import EquityOption, CommonStock
 
-# Calculate forward price
-forward_price = contract.calculate_forward_price()
-print("Forward Price:", forward_price)
+equity_option = EquityOption(
+    underlying=CommonStock(ticker='AAPL'),
+    payoff=VanillaPayoff(
+        option_type=OptionType.PUT,
+        strike_price=100
+    ),
+    exercise_type=AmericanExerciseStyle(
+        minimum_exercise_date=date(2022, 1, 3),
+        expiration_date=date(2025, 1, 3),
+        cut=NysePMCut()
+    ),
+    denomination_currency=Currency.USD,
+    contract_size=100
+)
 ```
 
 ## Linting and Code Formatting
@@ -128,12 +107,12 @@ submit a pull request.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/finstruments.git
+   git clone https://github.com/kyleloomis/finstruments.git
    ```
 
 2. Install dependencies:
    ```bash
-   pip install -r requirements.txt
+   pip install .
    ```
 
 3. Run the tests to ensure everything is set up correctly:
