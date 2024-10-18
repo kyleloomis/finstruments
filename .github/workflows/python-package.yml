@@ -32,7 +32,7 @@ jobs:
 
       - name: Run black to check code formatting
         run: |
-          black --check .
+          black --check --verbose .
 
   test:
     runs-on: ubuntu-latest
