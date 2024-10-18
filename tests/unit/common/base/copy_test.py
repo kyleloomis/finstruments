@@ -36,7 +36,7 @@ class TestCopy(unittest.TestCase):
     def test_copy_with_ignored_fields_and_nested_alterations(self):
         copy = self.position.copy(
             ignored_fields=["instrument.agreed_discount_rate"],
-            **{"instrument.underlying": CommonStock(ticker="TEST2")}
+            **{"instrument.underlying": CommonStock(ticker="TEST2")},
         )
         self.assertEqual(copy.instrument.agreed_discount_rate, None)
         self.assertEqual(self.position.id, copy.id)
