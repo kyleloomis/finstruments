@@ -19,31 +19,44 @@ except ImportError:
 
 def get_tag():
     try:
+        # Get the latest tag
         tag = subprocess.run(
-            ['git', 'tag', '--sort=version:refname'],
+            ['git', 'describe', '--tags', '--abbrev=0'],
             check=True,
             text=True,
             capture_output=True
-        ).stdout.strip().split('\n')[-1]
+        ).stdout.strip()
 
-        commits = subprocess.run(
+        # Make sure the tag starts with a valid semantic version format (e.g., v1.0.0)
+        if tag.startswith('v'):
+            tag = tag[1:]
+
+        # Verify the tag follows semantic versioning
+        if not tag or not tag[0].isdigit():
+            raise ValueError(f"Invalid tag format: {tag}")
+
+        # Count the number of commits since the last tag to append
+        commits_since_tag = subprocess.run(
             ['git', 'rev-list', f'{tag}..HEAD', '--count'],
             check=True,
             text=True,
             capture_output=True
         ).stdout.strip()
 
-        return f'{tag}.{commits}'
-    except subprocess.CalledProcessError:
-        print("Warning: Unable to determine version from Git, using default version 0.0.0")
-        return '0.0.0'
+        # If there are no commits, use the tag as the version
+        if commits_since_tag == '0':
+            return tag
 
+        # Return the tag with the number of commits appended
+        return f"{tag}.{commits_since_tag}"
+    except (subprocess.CalledProcessError, ValueError) as e:
+        print(f"Warning: Unable to determine version from Git: {e}")
+        return '0.1.0'  # Default to a safe version if there's a problem
 
-version = get_tag()
 
 setuptools.setup(
     name="finstruments",
-    version=version,
+    version=get_tag(),
     author="Kyle Loomis",
     author_email="kyle@spotlight.dev",
     description="Financial Instruments.",
