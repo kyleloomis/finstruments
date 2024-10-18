@@ -46,18 +46,18 @@ from finstruments.instrument.common.option.payoff import VanillaPayoff
 from finstruments.instrument.equity import EquityOption, CommonStock
 
 equity_option = EquityOption(
-   underlying=CommonStock(ticker='AAPL'),
-   payoff=VanillaPayoff(
-      option_type=OptionType.PUT,
-      strike_price=100
-   ),
-   exercise_type=AmericanExerciseStyle(
-      minimum_exercise_date=date(2022, 1, 3),
-      expiration_date=date(2025, 1, 3),
-      cut=NysePMCut()
-   ),
-   denomination_currency=Currency.USD,
-   contract_size=100
+    underlying=CommonStock(ticker='AAPL'),
+    payoff=VanillaPayoff(
+        option_type=OptionType.PUT,
+        strike_price=100
+    ),
+    exercise_type=AmericanExerciseStyle(
+        minimum_exercise_date=date(2022, 1, 3),
+        expiration_date=date(2025, 1, 3),
+        cut=NysePMCut()
+    ),
+    denomination_currency=Currency.USD,
+    contract_size=100
 )
 ```
 
