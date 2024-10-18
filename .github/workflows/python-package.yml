@@ -23,7 +23,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'  # Specify the Python version you need
+          python-version: '3.9'  # Specify the Python version you need
 
       - name: Install black
         run: |
@@ -46,7 +46,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'  # Specify the Python version you need
+          python-version: '3.9'  # Specify the Python version you need
 
       - name: Install dependencies
         run: |
@@ -70,7 +70,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.9'
 
       - name: Install build dependencies
         run: |
