@@ -7,7 +7,10 @@ from typing import List
 from pytz import timezone
 
 from finstruments.common.base import Base
-from finstruments.common.decorators.serializable import serializable, serializable_base_class
+from finstruments.common.decorators.serializable import (
+    serializable,
+    serializable_base_class,
+)
 
 
 @serializable_base_class
