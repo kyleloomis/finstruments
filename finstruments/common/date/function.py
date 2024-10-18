@@ -2,11 +2,11 @@
 Date and time functions.
 """
 import calendar
-from datetime import date, datetime, time
+from datetime import date, datetime, time, timedelta
 from typing import List
 
 import pytz
-from pandas import to_datetime, bdate_range
+from workalendar.usa import UnitedStates
 
 
 def date_to_timestamp(as_of_date: date) -> int:
@@ -75,14 +75,21 @@ def create_dates_between(start: date, end: date, frequency: str = "B") -> List[d
     Args:
         start (date): Python date
         end (date): Python date
-        frequency (str): Frequency for date range
+        frequency (str): Frequency for date range, "B" for business days, "D" for daily
 
     Returns:
         List[date]: List of dates
     """
-    return [
-        dt.date()
-        for dt in to_datetime(
-            bdate_range(start=start, end=end, freq=frequency).to_list()
-        )
-    ]
+    if frequency == "B":  # Business days, excluding weekends
+        cal = UnitedStates()
+        current = start
+        dates = []
+        while current <= end:
+            if cal.is_working_day(current):
+                dates.append(current)
+            current += timedelta(days=1)
+        return dates
+    elif frequency == "D":  # Daily frequency
+        return [start + timedelta(days=i) for i in range((end - start).days + 1)]
+    else:
+        raise ValueError("Unsupported frequency. Use 'B' for business days or 'D' for daily.")

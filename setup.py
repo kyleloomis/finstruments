@@ -1,5 +1,6 @@
-import setuptools
 import subprocess
+
+import setuptools
 
 try:
     import pypandoc
@@ -37,7 +38,6 @@ setuptools.setup(
         "pydash>=7.0.3",
         "pydantic==1.10.17",
         "pytz==2024.2",
-        "pandas==1.3.5",
-        "numpy==1.22.1"
+        "workalendar==17.0.0"
     ]
 )
