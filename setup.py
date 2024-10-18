@@ -55,10 +55,10 @@ def get_tag():
     except subprocess.CalledProcessError as e:
         # Handle the case where no tags are found
         if "fatal: No names found" in str(e):
-            print("No tags found in the repository, using default version 0.1.0")
-            return "0.1.0"
+            print("No tags found in the repository, using default version 0.0.1")
+            return "0.0.1"
         print(f"Warning: Unable to determine version from Git: {e}")
-        return "0.1.0"
+        return "0.0.1"
 
 
 setuptools.setup(
