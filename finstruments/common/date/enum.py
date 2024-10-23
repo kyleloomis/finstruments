@@ -109,6 +109,7 @@ class Frequency(BaseEnum):
     WEEKLY = "WEEKLY"
     DAILY = "DAILY"
 
+
 class BusinessDayConvention(BaseEnum):
     """
     Business day convention
@@ -132,7 +133,6 @@ class BusinessDayConvention(BaseEnum):
     PRECEDING = "PRECEDING"
     MODIFIED_PRECEDING = "MODIFIED_PRECEDING"
     UNADJUSTED = "UNADJUSTED"
-
 
 
 SECONDS_IN_MINUTE = 60

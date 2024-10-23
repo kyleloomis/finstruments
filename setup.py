@@ -35,6 +35,6 @@ setuptools.setup(
         "pydantic==1.10.17",
         "pytz==2024.2",
         "workalendar==17.0.0",
-        "python-dateutil==2.9.0.post0"
+        "python-dateutil==2.9.0.post0",
     ],
 )
