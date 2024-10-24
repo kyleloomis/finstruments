@@ -84,7 +84,7 @@ jobs:
           VERSION=$(python -c "import setuptools_scm; print(setuptools_scm.get_version())")
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Create and push tag
+      - name: Create and push new tag
         env:
           VERSION: ${{ env.VERSION }}
         run: |
