@@ -99,6 +99,8 @@ jobs:
     steps:
       - name: Check out the code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -118,9 +120,11 @@ jobs:
       - name: Clean up previous builds
         run: rm -rf dist
 
-      - name: Build the package
+      - name: Build the package with the correct version
+        env:
+          VERSION: ${{ env.VERSION }}
         run: |
-          python -m build
+          python -m build --sdist --wheel --outdir dist
 
       - name: Publish to PyPI
         env:
