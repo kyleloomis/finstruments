@@ -4,10 +4,27 @@ Date and time functions.
 
 import calendar
 from datetime import date, datetime, time, timedelta
+from functools import lru_cache
 from typing import List
 
 import pytz
 from workalendar.usa import UnitedStates
+
+from finstruments.common.date.enum import DayCountConvention, SECONDS_IN_DAY
+
+
+@lru_cache(10)
+def seconds_in_year(day_count_convention: DayCountConvention) -> float:
+    """
+    Calculate number of seconds per year based on day count convention. LRU cache is used to have 4x performance.
+
+    Args:
+        day_count_convention (DayCountConvention): Day count convention to use in calculation
+
+    Returns:
+        float: Number of seconds per year based on day count convention
+    """
+    return SECONDS_IN_DAY * float(day_count_convention)
 
 
 def date_to_timestamp(as_of_date: date) -> int:
