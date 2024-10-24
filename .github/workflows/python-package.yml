@@ -64,6 +64,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          tags: true  # Fetch all tags to ensure setuptools_scm can use them
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -75,15 +76,14 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install --upgrade setuptools>=61 setuptools_scm[toml]>=8
 
-      - name: Get the current version
+      - name: Determine the clean version
         id: get_version
         run: |
           VERSION=$(python -c "import setuptools_scm; print(setuptools_scm.get_version())")
-          SHORT_SHA=$(git rev-parse --short HEAD)
-          VERSION="${VERSION}+${SHORT_SHA}"
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          CLEAN_VERSION=$(echo $VERSION | sed 's/\.dev[0-9]\+.*//')
+          echo "VERSION=$CLEAN_VERSION" >> $GITHUB_ENV
 
-      - name: Create and push tag
+      - name: Create and push a clean tag
         env:
           VERSION: ${{ env.VERSION }}
         run: |
