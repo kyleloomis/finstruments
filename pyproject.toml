@@ -7,5 +7,5 @@ line-length = 88
 target-version = ['py39']
 
 [tool.setuptools_scm]
-version_scheme = "guess-next-dev"
-local_scheme = "node-and-date"
+version_scheme = "post-release"
+local_scheme = "no-local-version"
