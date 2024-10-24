@@ -1,6 +1,7 @@
 """
 Common enums.
 """
+
 import math
 from typing import List
 
