@@ -116,6 +116,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install build twine
 
+      - name: Clean up previous builds
+        run: rm -rf dist  # This step ensures old distribution files are removed
+
       - name: Build the package
         run: |
           python -m build
