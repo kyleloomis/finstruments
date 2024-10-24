@@ -16,13 +16,8 @@ except ImportError:
 
 setuptools.setup(
     name="finstruments",
-    use_scm_version={
-        "root": ".",
-        "relative_to": __file__,
-        "version_scheme": "post-release",
-        "local_scheme": "dirty-tag",
-    },
-    setup_requires=["setuptools_scm"],
+    use_scm_version=True,  # Enable setuptools_scm for versioning
+    setup_requires=["setuptools_scm"],  # Ensure setuptools_scm is available for setup
     author="Kyle Loomis",
     author_email="kyle@spotlight.dev",
     description="Financial Instruments.",
