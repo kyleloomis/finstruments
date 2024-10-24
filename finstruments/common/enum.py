@@ -1,6 +1,8 @@
 """
 Common enums.
 """
+import math
+from typing import List
 
 from finstruments.common.base_enum import BaseEnum
 
@@ -333,3 +335,35 @@ class Currency(BaseEnum):
     SZl = "SZl"
     USd = "USd"
     ZAr = "ZAr"
+
+
+class Average(BaseEnum):
+    """"""
+
+    ARITHMETIC = "ARITHMETIC"
+    GEOMETRIC = "GEOMETRIC"
+
+    def apply(self, values: List[float]) -> float:
+        """
+        Apply the average calculation over the given array.
+
+        Args:
+            values (list[float]): A list of numeric values.
+
+        Returns:
+            float: The calculated average value.
+
+        Raises:
+            ValueError: If the input array is empty.
+            Exception: If the average type is not supported.
+        """
+        if not values:
+            raise ValueError("The input array cannot be empty")
+
+        if self == Average.ARITHMETIC:
+            return sum(values) / len(values)
+        elif self == Average.GEOMETRIC:
+            product = math.prod(values)
+            return product ** (1 / len(values))
+        else:
+            raise Exception(f"Average type '{self}' not supported")
