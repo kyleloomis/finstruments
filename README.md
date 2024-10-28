@@ -1,19 +1,17 @@
-# Finstruments: Financial Instruments
+# Finstruments: Financial Instrument Definitions
 
-`finstruments` is a Python library designed for modeling financial instruments. It comes with the core financial
-instruments, such as forwards and options, out of the box, as well as position, trade, and portfolio models.
-`finstruments` comes with the basic building blocks, making it easy to extend and build new instruments for any asset
-class. These building blocks also provide the functionality to serialize and deserialize to and from JSON, enabling the
-ability to store a serialized format in a document database. This library is ideal for quantitative researchers,
-traders, and developers who need a streamlined way to build and interact with financial instruments.
+`finstruments` is a financial instrument definition library built with Python and Pydantic. Out of the box, it comes with the most common financial
+instruments, including equity forwards and options, as well as position, trade, and portfolio models. If an instrument
+doesn't already exist, you can leverage the building blocks to easily create a new instrument for any asset class. These building
+blocks also provide the functionality to serialize and deserialize to and from JSON, enabling API integration and storage in a document database.
 
 ## Key Features
 
-- Support for various financial instruments, including options, forwards, and custom instrument extensions.
-- Functions for date handling, business day calculations, and other financial operations.
-- Serialization and deserialization capabilities for easy conversion between data formats.
-- Automatically handles complex calculations like option payoffs and date conventions.
-- Lightweight and dependency-minimized where possible.
+- Support for common financial instruments, including equity forwards and options
+- Ability to extend and create custom instruments
+- JSON serialization and deserialization capabilities
+- Functions for date handling, business day calculations, payoffs, and other financial operations
+- Lightweight with minimal dependencies
 
 ## Serialization and Deserialization
 
