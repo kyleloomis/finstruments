@@ -31,6 +31,7 @@ setuptools.setup(
     python_requires=">=3.7",
     packages=setuptools.find_packages(include=["finstruments*"], exclude=["tests.*"]),
     install_requires=[
+        "pytest==7.1.2",
         "pydash>=7.0.3",
         "pydantic==1.10.17",
         "pytz==2024.2",

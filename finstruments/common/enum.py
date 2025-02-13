@@ -2,7 +2,8 @@
 Common enums.
 """
 
-import math
+from functools import reduce
+from operator import mul
 from typing import List
 
 from finstruments.common.base_enum import BaseEnum
@@ -364,7 +365,7 @@ class Average(BaseEnum):
         if self == Average.ARITHMETIC:
             return sum(values) / len(values)
         elif self == Average.GEOMETRIC:
-            product = math.prod(values)
+            product = reduce(mul, values, 1)
             return product ** (1 / len(values))
         else:
             raise Exception(f"Average type '{self}' not supported")
