@@ -1,5 +1,6 @@
-import math
 import unittest
+from functools import reduce
+from operator import mul
 
 from finstruments.common.enum import Average
 
@@ -14,7 +15,11 @@ class AverageTest(unittest.TestCase):
     def test_geometric_average(self):
         values = [1, 2, 3, 4, 5]
         result = Average.GEOMETRIC.apply(values)
-        expected = math.prod(values) ** (1 / len(values))
+
+        # Compute product without math.prod()
+        product = reduce(mul, values, 1)
+        expected = product ** (1 / len(values))
+
         self.assertAlmostEqual(result, expected, places=6)
 
     def test_empty_list(self):
