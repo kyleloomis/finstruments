@@ -73,10 +73,7 @@ jobs:
 
       - name: Upgrade setuptools and setuptools_scm
         run: |
-          python -m pip install --upgrade "pip<23.0"
-          python -m ensurepip --default-pip
-          python -m pip install --upgrade --force-reinstall pip
-          hash -r
+          python -m pip install --upgrade pip
           python -m pip install --upgrade setuptools<68 setuptools_scm[toml]<8
 
       - name: Determine the clean version
